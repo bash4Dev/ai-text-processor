@@ -46,9 +46,12 @@ const App: React.FC = () => {
         detector = await window.ai.languageDetector.create();
       } else {
         detector = await window.ai.languageDetector.create({
-          monitor: (m: any) => {
-            m.addEventListener('downloadprogress', (e: any) => {
-              console.log(`Language model: Downloaded ${e.loaded} of ${e.total} bytes.`);
+          monitor: (m: EventTarget) => {
+            m.addEventListener('downloadprogress', (e: Event) => {
+              const progressEvent = e as DownloadProgressEvent;
+              console.log(
+                `Language model: Downloaded ${progressEvent.loaded} of ${progressEvent.total} bytes.`
+              );
             });
           },
         });
@@ -64,6 +67,7 @@ const App: React.FC = () => {
         )
       );
     } catch (error) {
+      console.error(error);
       setMessages((prev) =>
         prev.map((msg) =>
           msg.id === newMessage.id
@@ -109,9 +113,12 @@ const App: React.FC = () => {
           type: 'key-points',
           format: 'plain-text',
           length: 'medium',
-          monitor: (m: any) => {
-            m.addEventListener('downloadprogress', (e: any) => {
-              console.log(`Summarizer: Downloaded ${e.loaded} of ${e.total} bytes.`);
+          monitor: (m: EventTarget) => {
+            m.addEventListener('downloadprogress', (e: Event) => {
+              const progressEvent = e as DownloadProgressEvent;
+              console.log(
+                `Summarizer: Downloaded ${progressEvent.loaded} of ${progressEvent.total} bytes.`
+              );
             });
           },
         });
@@ -124,6 +131,7 @@ const App: React.FC = () => {
         prev.map((msg) => (msg.id === id ? { ...msg, summary, isLoadingSummarize: false } : msg))
       );
     } catch (error) {
+      console.error(error);
       setMessages((prev) =>
         prev.map((msg) =>
           msg.id === id ? { ...msg, error: 'Summarization failed', isLoadingSummarize: false } : msg
@@ -165,9 +173,12 @@ const App: React.FC = () => {
         translator = await window.ai.translator.create({
           sourceLanguage,
           targetLanguage,
-          monitor: (m: any) => {
-            m.addEventListener('downloadprogress', (e: any) => {
-              console.log(`Translator: Downloaded ${e.loaded} of ${e.total} bytes.`);
+          monitor: (m: EventTarget) => {
+            m.addEventListener('downloadprogress', (e: Event) => {
+              const progressEvent = e as DownloadProgressEvent;
+              console.log(
+                `Translator: Downloaded ${progressEvent.loaded} of ${progressEvent.total} bytes.`
+              );
             });
           },
         });
@@ -180,6 +191,7 @@ const App: React.FC = () => {
         )
       );
     } catch (error) {
+      console.error(error);
       setMessages((prev) =>
         prev.map((msg) =>
           msg.id === id ? { ...msg, error: 'Translation failed', isLoadingTranslate: false } : msg
