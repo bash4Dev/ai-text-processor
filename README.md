@@ -1,6 +1,6 @@
 # AI-Powered Text Processor
 
-An AI-powered text processing interface built with React and Vite. This project lets users input text and receive language detection, summarization, and translation using Chrome's built-in AI APIs. It is part of the HNG Internship tasks. Visit the (Live Page)[https://ai-text-interface-mrfsnu8za-bash4umrs-projects.vercel.app/] here.
+An AI-powered text processing interface built with React and Vite. This project lets users input text and receive language detection, summarization, and translation using Chrome's built-in AI APIs. It is part of the HNG Internship tasks. Visit the [Live Page](https://ai-text-interface-mrfsnu8za-bash4umrs-projects.vercel.app/) here.
 
 ## Features
 
